@@ -3,149 +3,248 @@
 <!-- ASSIGN OUR ANGULAR MODULE -->
 <html ng-app="cmsDashboard">
 <head>
-	<!-- META -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Optimize mobile viewport -->
 
-	<title>CMS Project 2015</title>
+    <title>CMS Project 2015</title>
 
-	<!-- SCROLLS -->
-	<link rel="stylesheet" href="css/bootstrap.min.css"><!-- load bootstrap -->
-	<link rel="stylesheet" href="css/angular-chart.css"><!-- load chartjs -->
+    <!-- SCROLLS -->
+    <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <!-- load bootstrap -->
+    <link rel="stylesheet" href="css/angular-chart.css">
+    <link rel="stylesheet" href="css/table.css">
+    <!-- load chartjs -->
 
-	<!-- IMPORT -->
-	<script src="js/lib/angular.min.js"></script><!-- load angular -->
-	<!--<script src="js/ui-bootstrap-tpls-0.14.3.min.js"></script> load angular UI -->
-	<script src="js/lib/Chart.min.js"></script><!-- load Chartjs -->
-	<script src="js/Chart.global.js"></script><!-- load Chartjs -->
-	<script src="js/lib/angular-chart.min.js"></script>
+    <!-- IMPORT -->
+    <script src="js/lib/angular.min.js"></script>
+    <!-- load angular -->
+    <!--<script src="js/ui-bootstrap-tpls-0.14.3.min.js"></script> load angular UI -->
+    <script src="js/lib/Chart.min.js"></script>
+    <!-- load Chartjs -->
+    <script src="js/Chart.global.js"></script>
+    <!-- load Chartjs -->
+    <script src="js/lib/angular-chart.min.js"></script>
 
-	<!-- SELF -->
-	<script src="js/core.js"></script>
-	<script src="js/controllers/dashboard.js"></script> <!-- load up our controller -->
-	<style>
+    <!-- SELF -->
+    <script src="js/core.js"></script>
+    <script src="js/controllers/dashboard.js"></script>
+    <!-- load up our controller -->
+    <style>
         html, body {
+            width: 100%;
             height: 100%;
-        }
-        .container-fluid {
-            height: 100%;
+            position: relative;
+            margin-left: 0px;
+            margin-top: 0px;
+            /*margin-bottom: 10px;*/
+            overflow: hidden;
         }
 
-        .columns {
-            /*background-color: #C9E6FF;*/
-            height: 100%;
+        div {
+            /*height:100vh;*/
         }
 
-        .content-area, .article-tree{
-            /*background: #bada55;*/
-            /*overflow:auto;*/
+        table {
+            border-width: 2px;
+            border-color: #ffffff;
+            width: 100%;
             height: 100%;
+            /*border: 1px solid #000000;*/
+            /*background-color: #ffffff;*/
         }
-        .thumbnail{
-            height: 150px;
+
+        tr {
+            /*background-color: #ffffff;*/
         }
-	</style>
+
+        th, td {
+            /*border: 1px solid #000000;*/
+            /*background-color: #cccccc;*/
+            text-align: center;
+            /*margin-left: 50px;*/
+        }
+
+        .header {
+            height: 14%;
+            font-family: Metric regular;
+            font-weight: normal;
+            font-size: 40px;
+            color: #ffffff;
+            background-color: #626262;
+        }
+
+        .data {
+            font-family: Metric light;
+            font-size: 90px;
+            color: #ffffff;
+        }
+
+        .color1 {
+            background-color: #00a982;
+        }
+
+        .color2 {
+            background-color: #219ac7;
+        }
+
+        .color3 {
+            background-color: #0f6c8d;
+        }
+
+        .color4 {
+            background-color: #e25b6c;
+        }
+
+        .color5 {
+            background-color: #f1b500;
+        }
+
+        .color6 {
+            background-color: #01bcb5;
+        }
+
+        .color7 {
+            background-color: #ff7753;
+        }
+
+        .color8 {
+            background-color: #e3e3e3;
+        }
+
+        label {
+            font-family: Metric light;
+            font-size: 40px;
+            color: #ffffff;
+            display: block;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .box {
+            border: 2px solid #999999;
+
+        }
+
+        .grid {
+            position: relative;
+            float: left;
+            width: 100%;
+            /*height: 300px;*/
+            overflow-y: hidden;
+            padding-top: 0px;
+            /*border: 1px solid #000000;*/
+        }
+
+    </style>
 </head>
 <!-- SET THE CONTROLLER -->
 <body ng-controller="dashboardCtl" ng-init="queryCis('event');">
-<div class="container-fluid wrapper">
-
-  <div class="row-fluid columns content"> 
-
-    <div class="col-md-6 article-tree">
- 		<div class="row-fluid content" style="height: 50%"> 
-					<h3>Docker</h3> 
-<!-- 					<div class="col-md-6" ng-repeat="(key, value) in statistics">
-						<span class="thumbnail">
-							<h4>{{ t2t(key) }}</h4> {{ value }}
-						</span>
-					</div> -->
-					<div class="col-md-6">
-						<span class="thumbnail">
-							<h4>Docker Container</h4> <h1>{{ statistics['docker_container'] }}
-						</span>
-					</div>
-					<div class="col-md-6">
-						<span class="thumbnail">
-							<h4>Docker Image</h4> <h1>{{ statistics['docker_image'] }}
-						</span>
-					</div>
-					<div class="col-md-6">
-						<span class="thumbnail">
-							<h4>Installed Software</h4> <h1>{{ statistics['installed_software'] }}
-						</span>
-					</div>
-					<div class="col-md-6">
-						<span class="thumbnail">
-							<h4>Docker Daemon</h4> <h1>{{ statistics['docker_daemon'] }}
-						</span>
-					</div>
- 		</div>
- 		<div class="row-fluid content" style="height: 50%"> 
-					<h3>Openstack</h3> 
-		<!-- 			<div class="col-md-6" ng-repeat="(key, value) in statistics">
-						<span class="thumbnail">
-							<h4>{{ t2t(key) }}</h4> {{ value }}
-						</span>
-					</div> -->
-					<div class="col-md-6">
-						<span class="thumbnail">
-							<h4>Virtual Machines</h4> <h1>{{ statistics['host_node'] }}
-						</span>
-					</div>
-					<div class="col-md-6">
-						<span class="thumbnail">
-							<h4>Image</h4> <h1>{{ statistics['openstack_image'] }}
-						</span>
-					</div>
-		<!-- 			<div class="col-md-6">
-						<span class="thumbnail">
-							<h4>Docker Daemon</h4> <h1>{{ statistics['docker_daemon'] }}
-						</span>
-					</div> -->
-		<!-- 			<div class="col-md-6">
-						<span class="thumbnail">
-							<h4>Docker Container</h4> <h1>{{ statistics['docker_container'] }}
-						</span>
-					</div> -->
- 		</div>
-    </div>
-
-    <div class="col-md-6 content-area">
-      <div class="row-fluid content" style="height: 50%"> 
-				<h3>Docker Event Change</h3>
-				<canvas id="line"class="chart chart-line" chart-data="lineChart.data" chart-labels="lineChart.labels" chart-legend="false" chart-series="lineChart.series" chart-options="lineChart.options"></canvas>
-      </div>
-      <div class="row-fluid content" style="height: 50%"> 
-				<!-- RECORDS -->
-				<div ng-show="cis" style="height: 90%; overflow: scroll">
-
-					<p ng-show="cis.length==0">No Selected Element Layout for 
-						<strong class="danger">{{ t2t(formData.ciType) }}</strong>
-					</p>
-
-					<table class="table table-striped">
-						<thead>
-							<tr ng-repeat="e in cis" ng-if="$first">
-								<th ng-repeat="(key, value) in e" ng-show="key!='timestamp'">
-									{{ t2t(key) }}
-									<!-- <a class="glyphicon glyphicon-sort" aria-hidden="true" ng-click="order(key)"></a> -->
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="e in cis|filter:search|orderBy:'timestamp':true|startFrom:0|limitTo:100">
-								<td ng-repeat="(key, value) in e" ng-show="key!='timestamp'">{{ value }}</td>
-							</tr>
-						</tbody>
-					</table>
-
-				</div>
-      </div>
-    </div>
-  </div>
-
-</div>
+<table>
+    <tr>
+        <td width="60%">
+            <table>
+                <tr>
+                    <td height="50%">
+                        <table>
+                            <tr>
+                                <td colspan="2" class="header">Docker</td>
+                            </tr>
+                            <tr>
+                                <td class="data color1" width="50%">{{ statistics['docker_container'] }}
+                                    <label>Docker Container</label></td>
+                                <td class="data color2">{{ statistics['docker_image'] }}
+                                    <label>Docker Image</label></td>
+                            </tr>
+                            <tr>
+                                <td class="data color3">{{ statistics['installed_software'] }}
+                                    <label>Installed Software</label></td>
+                                <td class="data color4">{{ statistics['docker_daemon'] }}
+                                    <label>Docker Daemon</label></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td colspan="2" class="header">OpenStack</td>
+                            </tr>
+                            <tr>
+                                <td class="data color5" width="50%">{{ statistics['host_node'] }}
+                                    <label>Virtual Machines</label></td>
+                                <td class="data color6">{{ statistics['openstack_image'] }}
+                                    <label>Openstack Image</label></td>
+                            </tr>
+                            <tr>
+                                <td class="data color7">&nbsp;
+                                    <label>&nbsp;</label></td>
+                                <td class="data color8">&nbsp;
+                                    <label>&nbsp;</label></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td height="50%">
+                        <table>
+                            <tr>
+                                <td class="header">Event Time Line</td>
+                            </tr>
+                            <tr>
+                                <td class="box">
+                                    <canvas id="line" class="chart chart-line" chart-data="lineChart.data"
+                                            chart-labels="lineChart.labels" chart-legend="false"
+                                            chart-series="lineChart.series" chart-options="lineChart.options"></canvas>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="box" style="vertical-align: top;">
+                                    <div class="grid" style="">
+                                        <p ng-show="cis.length==0">No Selected Element Layout for
+                                            <strong class="danger">{{ t2t(formData.ciType) }}</strong>
+                                        </p>
+                                        <table ng-show="cis" class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Event Type</th>
+                                                <th>Create Time</th>
+                                                <th>Object ID</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="ci in cis|filter:search|orderBy:'timestamp':true|startFrom:0|limitTo:formData.pageSize">
+                                                <td>{{ ci['event_type'] }}</td>
+                                                <td>{{ ci['create_time'] }}</td>
+                                                <td>{{ ci['object_id'] }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
 
 </body>
 </html>

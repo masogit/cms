@@ -11,9 +11,10 @@
     <title>CMS Project 2015</title>
 
     <!-- SCROLLS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
     <!-- load bootstrap -->
     <link rel="stylesheet" href="css/angular-chart.css">
+    <!--<link rel="stylesheet" href="css/table.css">-->
     <!-- load chartjs -->
 
     <!-- IMPORT -->
@@ -32,62 +33,163 @@
     <!-- load up our controller -->
     <style>
         html, body {
+            width: 100%;
             height: 100%;
+            position: relative;
+            /*margin-left: 0px;*/
+            /*margin-top: 0px;*/
+            /*margin-bottom: 10px;*/
+            overflow: hidden;
+            /*margin-top: auto;*/
+            /*margin-bottom: auto;*/
+
         }
 
-        .container-fluid {
-            height: 100%;
+        div {
+            /*height:100vh;*/
         }
 
-        .columns {
-            /*background-color: #C9E6FF;*/
-            margin-top: 20px;
-            height: 100%;
+        table {
+            border-width: 2px;
+            border-color: #ffffff;
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*border: 1px solid #000000;*/
+            /*background-color: #ffffff;*/
         }
 
-        .content-area, .article-tree {
-            /*background: #bada55;*/
-            /*overflow:auto;*/
-            height: 100%;
+        tr {
+            /*background-color: #ffffff;*/
         }
+
+        th, td {
+            /*border: 1px solid #000000;*/
+            /*background-color: #cccccc;*/
+            text-align: center;
+            /*margin-left: 50px;*/
+        }
+
+        .header {
+            height: 14%;
+            font-family: Metric regular;
+            font-weight: normal;
+            font-size: 40px;
+            color: #ffffff;
+            background-color: #626262;
+        }
+
+        .data {
+            font-family: Metric light;
+            font-size: 60px;
+            color: #ffffff;
+        }
+
+        .color1 {
+            background-color: #00a982;
+        }
+
+        .color2 {
+            background-color: #219ac7;
+        }
+
+        .color3 {
+            background-color: #0f6c8d;
+        }
+
+        .color4 {
+            background-color: #e25b6c;
+        }
+
+        .color5 {
+            background-color: #f1b500;
+        }
+
+        .color6 {
+            background-color: #01bcb5;
+        }
+
+        .color7 {
+            background-color: #ff7753;
+        }
+
+        .color8 {
+            background-color: #e3e3e3;
+        }
+
+        label {
+            font-family: Metric light;
+            font-size: 25px;
+            color: #ffffff;
+            display: block;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .box {
+            border: 2px solid #999999;
+
+        }
+
+        .grid {
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 300px;
+            overflow-y: hidden;
+            padding-top: 0px;
+            /*border: 1px solid #000000;*/
+        }
+
     </style>
 </head>
 <!-- SET THE CONTROLLER -->
 <body ng-controller="dashboardCtl" ng-init="queryCis('event');">
-<div class="container-fluid wrapper">
+<table align="center" width="80%" style="margin-top: 10px">
+    <tr>
+        <td width="50%" class="data color2">{{ statistics['docker_image_template']}}<label>Docker Image Template</label>
+        </td>
+        <td class="data color4">{{ statistics['docker_container']}}<label>Docker
+            Container</label></td>
 
-    <div class="row-fluid columns content">
-
-        <div class="col-md-6 article-tree">
-            <h3>Docker Image Template [<strong>{{ statistics['docker_image_template']}}</strong>]</h3>
-
-            <canvas id="bar" class="chart chart-bar" chart-data="barChart.data" chart-labels="barChart.labels"
-                    chart-legend="false" chart-series="barChart.series" chart-options="barChart.options"></canvas>
-
+    </tr>
+    <tr>
+        <td>
+            <canvas id="bar" class="chart chart-bar" chart-data="barChart.data"
+                    chart-labels="barChart.labels"
+                    chart-legend="false" chart-series="barChart.series"
+                    chart-options="barChart.options"></canvas>
+        </td>
+        <td>
+            <canvas id="doughnut" class="chart chart-doughnut" chart-data="doughnut.data"
+                    chart-labels="doughnut.labels"
+                    chart-options="doughnut.options"></canvas>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <table class="table" style="width: 50%" align="center">
                 <tr ng-repeat="s in barChart.series">
                     <td>{{s}}</td>
                     <td>{{barChart.data[$index][0]}}</td>
                 </tr>
             </table>
-        </div>
-
-        <div class="col-md-6 content-area">
-            <h3>Docker Container [<strong>{{ statistics['docker_container']}}</strong>] </h3>
-
-            <canvas id="doughnut" class="chart chart-doughnut" chart-data="doughnut.data" chart-labels="doughnut.labels"
-                    chart-options="doughnut.options"></canvas>
-
+        </td>
+        <td>
             <table class="table" style="width: 50%" align="center">
                 <tr ng-repeat="s in doughnut.labels">
                     <td>{{s}}</td>
                     <td>{{doughnut.data[$index]}}</td>
                 </tr>
             </table>
-        </div>
-    </div>
+        </td>
+    </tr>
 
-</div>
+
+</table>
+
 
 </body>
 </html>
