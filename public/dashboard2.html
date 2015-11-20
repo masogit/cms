@@ -3,79 +3,89 @@
 <!-- ASSIGN OUR ANGULAR MODULE -->
 <html ng-app="cmsDashboard">
 <head>
-	<!-- META -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Optimize mobile viewport -->
 
-	<title>CMS Project 2015</title>
+    <title>CMS Project 2015</title>
 
-	<!-- SCROLLS -->
-	<link rel="stylesheet" href="css/bootstrap.min.css"><!-- load bootstrap -->
-	<link rel="stylesheet" href="css/angular-chart.css"><!-- load chartjs -->
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- load bootstrap -->
+    <link rel="stylesheet" href="css/angular-chart.css">
+    <!-- load chartjs -->
 
-	<!-- IMPORT -->
-	<script src="js/angular.min.js"></script><!-- load angular -->
-	<!--<script src="js/ui-bootstrap-tpls-0.14.3.min.js"></script> load angular UI -->
-	<script src="js/Chart.min.js"></script><!-- load Chartjs -->
-	<script src="js/Chart.global.js"></script><!-- load Chartjs -->
-	<script src="js/angular-chart.min.js"></script>
+    <!-- IMPORT -->
+    <script src="js/lib/angular.min.js"></script>
+    <!-- load angular -->
+    <!--<script src="js/ui-bootstrap-tpls-0.14.3.min.js"></script> load angular UI -->
+    <script src="js/lib/Chart.min.js"></script>
+    <!-- load Chartjs -->
+    <script src="js/Chart.global.js"></script>
+    <!-- load Chartjs -->
+    <script src="js/lib/angular-chart.min.js"></script>
 
-	<!-- SELF -->
-	<script src="js/core.js"></script>
-	<script src="js/controllers/dashboard.js"></script> <!-- load up our controller -->
-	<style>
-html, body {
-    height: 100%;
-}
-.container-fluid {
-    height: 100%;
-}
+    <!-- SELF -->
+    <script src="js/core.js"></script>
+    <script src="js/controllers/dashboard.js"></script>
+    <!-- load up our controller -->
+    <style>
+        html, body {
+            height: 100%;
+        }
 
-.columns {
-    /*background-color: #C9E6FF;*/
-    margin-top: 20px;
-    height: 100%;   
-}
+        .container-fluid {
+            height: 100%;
+        }
 
-.content-area, .article-tree{
-    /*background: #bada55;*/
-    /*overflow:auto;*/
-    height: 100%;
-}
-	</style>
+        .columns {
+            /*background-color: #C9E6FF;*/
+            margin-top: 20px;
+            height: 100%;
+        }
+
+        .content-area, .article-tree {
+            /*background: #bada55;*/
+            /*overflow:auto;*/
+            height: 100%;
+        }
+    </style>
 </head>
 <!-- SET THE CONTROLLER -->
 <body ng-controller="dashboardCtl" ng-init="queryCis('event');">
 <div class="container-fluid wrapper">
 
-  <div class="row-fluid columns content"> 
+    <div class="row-fluid columns content">
 
-    <div class="col-md-6 article-tree">
-				<h3>Docker Image Template [<strong>{{ statistics['docker_image_template']}}</strong>]</h3>
-				
-				<canvas id="bar" class="chart chart-bar" chart-data="barChart.data" chart-labels="barChart.labels" chart-legend="false" chart-series="barChart.series" chart-options="barChart.options"></canvas>
+        <div class="col-md-6 article-tree">
+            <h3>Docker Image Template [<strong>{{ statistics['docker_image_template']}}</strong>]</h3>
 
-				<table class="table" style="width: 50%" align="center">
-					<tr ng-repeat="s in barChart.series">
-						<td>{{s}}</td>
-						<td>{{barChart.data[$index][0]}}</td>
-					</tr>
-				</table>
+            <canvas id="bar" class="chart chart-bar" chart-data="barChart.data" chart-labels="barChart.labels"
+                    chart-legend="false" chart-series="barChart.series" chart-options="barChart.options"></canvas>
+
+            <table class="table" style="width: 50%" align="center">
+                <tr ng-repeat="s in barChart.series">
+                    <td>{{s}}</td>
+                    <td>{{barChart.data[$index][0]}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6 content-area">
+            <h3>Docker Container [<strong>{{ statistics['docker_container']}}</strong>] </h3>
+
+            <canvas id="doughnut" class="chart chart-doughnut" chart-data="doughnut.data" chart-labels="doughnut.labels"
+                    chart-options="doughnut.options"></canvas>
+
+            <table class="table" style="width: 50%" align="center">
+                <tr ng-repeat="s in doughnut.labels">
+                    <td>{{s}}</td>
+                    <td>{{doughnut.data[$index]}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
-
-    <div class="col-md-6 content-area">
-				<h3>Docker Container [<strong>{{ statistics['docker_container']}}</strong>] </h3>
-
-				<canvas id="doughnut" class="chart chart-doughnut" chart-data="doughnut.data" chart-labels="doughnut.labels" chart-options="doughnut.options"></canvas>
-
-				<table class="table" style="width: 50%" align="center">
-					<tr ng-repeat="s in doughnut.labels">
-						<td>{{s}}</td>
-						<td>{{doughnut.data[$index]}}</td>
-					</tr>
-				</table>
-    </div>
-  </div>
 
 </div>
 
