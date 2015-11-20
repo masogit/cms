@@ -1,7 +1,7 @@
 {
   "name"         : "cms-console",
   "version"      : "0.0.0",
-  "description"  : "Simple todo application.",
+  "description"  : "Display UCMDB TQL data from REST",
   "main"         : "server.js",
   "author"       : "maso",
   "dependencies" : {
