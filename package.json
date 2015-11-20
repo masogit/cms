@@ -1,9 +1,9 @@
 {
-  "name"         : "node-todo",
+  "name"         : "cms-console",
   "version"      : "0.0.0",
   "description"  : "Simple todo application.",
   "main"         : "server.js",
-  "author"       : "Scotch",
+  "author"       : "maso",
   "dependencies" : {
     "express"         : "~4.6.1",
     "mongoose"        : "~3.8.13",
