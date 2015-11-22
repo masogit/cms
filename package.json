@@ -1,6 +1,6 @@
 {
   "name"         : "cms-console",
-  "version"      : "0.0.0",
+  "version"      : "0.1.0",
   "description"  : "Display UCMDB TQL data from REST",
   "main"         : "server.js",
   "author"       : "maso",
