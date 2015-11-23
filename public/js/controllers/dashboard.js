@@ -16,10 +16,10 @@ angular.module('cmsController', [])
         };
 
 
-        $scope.statistics;
-        $scope.time;
+        $scope.statistics = {};
+        $scope.time = "";
         $scope.currentPage = 0;
-        $scope.raw;
+        $scope.raw = [];
         $scope.cis = [];
         $scope.chartAnimation = chartAnimation;
 
@@ -69,7 +69,6 @@ angular.module('cmsController', [])
                         if ('create_time' in obj.properties) {
                             obj.properties['timestamp'] = Date.parse(obj.properties['create_time']);
                         }
-                        ;
 
                         // count install software name
                         if (obj.type == 'installed_software') {
@@ -107,8 +106,6 @@ angular.module('cmsController', [])
                 if ($scope.raw[i].type == ciType && $scope.raw[i].properties)
                     $scope.cis.push($scope.raw[i].properties);
             }
-            ;
-
 
         };
 
@@ -149,7 +146,7 @@ angular.module('cmsController', [])
         $scope.setInterval = function () {
             $interval.cancel(interval);
             interval = $interval(function () {
-                $scope.getTopology()
+                $scope.REST();
             }, $scope.formData.interval * 1000);
         };
 
@@ -261,14 +258,10 @@ angular.module('cmsController', [])
                 labels: [],
                 data: [],
                 options: chart_circle
-            }
+            };
 
             // $scope.lineChart.options = Object.assign(chart_global, chart_line);
-            if ($scope.formData.animation == "<None>")
-                Chart.defaults.global.animation = false;
-            else
-                Chart.defaults.global.animation = true;
-
+            Chart.defaults.global.animation = !($scope.formData.animation == "<None>");
             Chart.defaults.global.animationEasing = $scope.formData.animation;
 
 
