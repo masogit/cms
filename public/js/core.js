@@ -29,10 +29,6 @@ angular.module('cmsTopology', [])
 
             getContainer: function (formData) {
                 return $http.post('/rest/container', formData);
-            },
-
-            execSSH: function (SSH) {
-                return $http.post('/ssh', SSH);
             }
         }
     }]);

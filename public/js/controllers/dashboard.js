@@ -14,14 +14,6 @@ angular.module('cmsController', [])
 //            random: 'false',
             ciType: 'event'
         };
-        $scope.ssh = {
-            host: '16.165.217.163',
-            user: 'root',
-            pass: 'cmstest',
-            cmd: 'source /root/keystonerc_admin && /root/create_vm.sh maso_vm 3',
-            msg: []
-        };
-
 
         $scope.statistics = {};
         $scope.time = "";
@@ -29,17 +21,6 @@ angular.module('cmsController', [])
         $scope.raw = [];
         $scope.cis = [];
         $scope.chartAnimation = chartAnimation;
-
-        // SSH command
-        $scope.sshExec = function () {
-            $scope.ssh.msg.push($scope.ssh.cmd);
-            topology.execSSH($scope.ssh).success(function (data) {
-                console.log("execute ssh command");
-                if (data) {
-                    $scope.ssh.msg.push(data);
-                }
-            });
-        };
 
         // get UCMDB TQL data
         $scope.getREST = function () {
