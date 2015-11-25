@@ -10,9 +10,16 @@ angular.module('cmsController', [])
             interval: 2,
             lenLineChart: 100,
             pageSize: 5,
-            animation: "easeOutBounce",
-            ciType: 'event',
-            random: 'true'
+//            animation: "<None>",
+//            random: 'false',
+            ciType: 'event'
+        };
+        $scope.ssh = {
+            host: '16.165.217.163',
+            user: 'root',
+            pass: 'cmstest',
+            cmd: 'source /root/keystonerc_admin && /root/create_vm.sh maso_vm 3',
+            msg: []
         };
 
 
@@ -22,6 +29,17 @@ angular.module('cmsController', [])
         $scope.raw = [];
         $scope.cis = [];
         $scope.chartAnimation = chartAnimation;
+
+        // SSH command
+        $scope.sshExec = function () {
+            $scope.ssh.msg.push($scope.ssh.cmd);
+            topology.execSSH($scope.ssh).success(function (data) {
+                console.log("execute ssh command");
+                if (data) {
+                    $scope.ssh.msg.push(data);
+                }
+            });
+        };
 
         // get UCMDB TQL data
         $scope.getREST = function () {
@@ -146,7 +164,7 @@ angular.module('cmsController', [])
         $scope.setInterval = function () {
             $interval.cancel(interval);
             interval = $interval(function () {
-                $scope.REST();
+                $scope.getREST();
             }, $scope.formData.interval * 1000);
         };
 
@@ -176,18 +194,19 @@ angular.module('cmsController', [])
 
         // chart ==================================================
         $scope.updateLineChart = function (chart, ciNumber) {
+
             while (chart.labels.length < $scope.formData.lenLineChart) {
                 chart.labels.push("");
                 chart.data[0].push(0);
             }
-            if ($scope.statistics) {
+            if ($scope.statistics['event']) {
 
                 chart.labels.push("");
                 // chart.series = ['Event'];
-                if ($scope.formData.random == 'true')
-                    chart.data[0].push(Math.round(Math.random() * 10));
-                else
-                    chart.data[0].push(ciNumber['event'] - $scope.statistics['event']);
+//                if ($scope.formData.random == 'true')
+//                    chart.data[0].push(Math.round(Math.random() * 10));
+//                else
+                chart.data[0].push(ciNumber['event'] - $scope.statistics['event']);
 
                 // keep length
                 while (chart.labels.length > $scope.formData.lenLineChart) {
@@ -209,10 +228,10 @@ angular.module('cmsController', [])
                     chart.data.push([ISNumber[is]]);
                     chart.series.push(is);
                 } else {
-                    if ($scope.formData.random == 'true')
-                        chart.data[chart.series.indexOf(is)] = [ISNumber[is] + Math.round(Math.random() * 10)];
-                    else
-                        chart.data[chart.series.indexOf(is)] = [ISNumber[is]];
+//                    if ($scope.formData.random == 'true')
+//                        chart.data[chart.series.indexOf(is)] = [ISNumber[is] + Math.round(Math.random() * 10)];
+//                    else
+                    chart.data[chart.series.indexOf(is)] = [ISNumber[is]];
                 }
             }
             for (s in chart.series) {
@@ -228,10 +247,10 @@ angular.module('cmsController', [])
             chart.data = [];
             chart.labels = [];
             for (rs in RSNumber) {
-                if ($scope.formData.random == 'true')
-                    chart.data.push(RSNumber[rs] + Math.round(Math.random() * 10));
-                else
-                    chart.data.push(RSNumber[rs]);
+//                if ($scope.formData.random == 'true')
+//                    chart.data.push(RSNumber[rs] + Math.round(Math.random() * 10));
+//                else
+                chart.data.push(RSNumber[rs]);
                 chart.labels.push($scope.t2t(rs));
             }
         };
@@ -261,8 +280,8 @@ angular.module('cmsController', [])
             };
 
             // $scope.lineChart.options = Object.assign(chart_global, chart_line);
-            Chart.defaults.global.animation = !($scope.formData.animation == "<None>");
-            Chart.defaults.global.animationEasing = $scope.formData.animation;
+//            Chart.defaults.global.animation = !($scope.formData.animation == "<None>");
+//            Chart.defaults.global.animationEasing = $scope.formData.animation;
 
 
         };
@@ -272,7 +291,7 @@ angular.module('cmsController', [])
         $scope.initCharts();
         $scope.getREST(); // inital get, then interval
         var interval = $interval(function () {
-            $scope.getREST()
+            $scope.getREST();
         }, $scope.formData.interval * 1000);
 
     }]);

@@ -1,0 +1,62 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="cmsDashboard">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Optimize mobile viewport -->
+
+    <title>CMS Project 2015</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- load bootstrap -->
+    <link rel="stylesheet" href="css/angular-chart.css">
+    <!-- load chartjs -->
+
+    <!-- IMPORT -->
+    <script src="js/lib/angular.min.js"></script>
+    <!-- load angular -->
+    <!--<script src="js/ui-bootstrap-tpls-0.14.3.min.js"></script> load angular UI -->
+    <script src="js/lib/Chart.min.js"></script>
+    <!-- load Chartjs -->
+    <script src="js/Chart.global.js"></script>
+    <!-- load Chartjs -->
+    <script src="js/lib/angular-chart.min.js"></script>
+
+    <!-- SELF -->
+    <script src="js/core.js"></script>
+    <script src="js/controllers/dashboard.js"></script>
+    <!-- load up our controller -->
+
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="dashboardCtl">
+<div class="container" style="width: 90%">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <h2> {{ title }} </h2>
+    </div>
+
+    <div class="row">
+        <!-- SSH -->
+        <input type="text" ng-model="ssh.host">
+        <input type="text" ng-model="ssh.user">
+        <input type="text" ng-model="ssh.pass">
+        <input type="text" ng-model="ssh.cmd" size="100">
+        <button type="submit" ng-click="sshExec()">Execute</button>
+        <div class="list-group">
+            <span class="list-group-item" ng-repeat="msg in ssh.msg">
+                {{ msg }}
+            </span>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

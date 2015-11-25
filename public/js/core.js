@@ -1,4 +1,4 @@
-var cms = angular.module('cmsDashboard',['cmsController','cmsTopology','chart.js']);
+var cms = angular.module('cmsDashboard', ['cmsController', 'cmsTopology', 'chart.js']);
 
 cms.filter('startFrom', function () {
     return function (input, start) {
@@ -21,18 +21,24 @@ cms.filter('range', function () {
 
 angular.module('cmsTopology', [])
 
-    .factory('topology', ['$http',function($http) {
+    .factory('topology', ['$http', function ($http) {
         return {
-            get : function(formData) {
+            get: function (formData) {
                 return $http.post('/rest/topology', formData);
             },
 
-            getContainer : function(formData) {
+            getContainer: function (formData) {
                 return $http.post('/rest/container', formData);
+            },
+
+            execSSH: function (SSH) {
+                return $http.post('/ssh', SSH);
             }
         }
     }]);
 
-String.prototype.capitalize = function() {
-    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+String.prototype.capitalize = function () {
+    return this.replace(/(?:^|\s)\S/g, function (a) {
+        return a.toUpperCase();
+    });
 };
