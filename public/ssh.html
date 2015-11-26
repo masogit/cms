@@ -39,14 +39,10 @@
             <input type="text" ng-model="ssh.cmd" size="100" placeholder="Commands">
             <button type="submit" ng-click="sshExec()">Execute</button>
         </form>
-        <h4>Command and Result</h4>
-
+        <h4>Commands and Results</h4>
         <div class="list-group">
-            <span class="list-group-item" ng-repeat="msg in ssh.msg">
-                {{ msg }}
-            </span>
+            <pre class="list-group-item" ng-repeat="msg in ssh.msg" style="">{{ msg }}</pre>
         </div>
-
     </div>
 
 </div>
